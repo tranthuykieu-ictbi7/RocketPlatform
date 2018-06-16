@@ -26,11 +26,15 @@ public class Game {
             getHitEnemy(this.inputRow, this.inputColumn);
             showBattle(a);
             notice();
-            reset();
-//            aroundEnemy(a, inputRow, inputColumn);
-//            System.out.println(countEnemyAround + " enemy(s) around");
+
+
+            aroundEnemy(a, inputRow, inputColumn);
+            System.out.println(countEnemyAround + " enemy(s) around");
+
             System.out.println( i - 1 + " rocket(s) left");
             System.out.println(4 - countEnemyLeft + " enemy(s) left");
+
+            reset();
         }
         endGame();
     }
@@ -42,13 +46,34 @@ public class Game {
 
         for (int x = inputRow - 1; x <= inputRow + 1; x++){
             for (int y = inputColumn - 1; y <= inputColumn + 1; y++){
-                if (a[x][y] == a[0][3] || a[x][y] == a[1][1]
-                        || a[x][y] == a[1][2] || a[x][y] == a[3][0]){
+                if (x != inputRow || y != inputColumn){
+
+                }
+
+                if (x == 0 && y == 3 && this.hitEnemy1 == false){
+                    this.countEnemyAround += 1;
+                }
+                if (x == 1 && y == 1 && this.hitEnemy2 == false){
+                    this.countEnemyAround += 1;
+                }
+                if (x == 1 && y == 2 && this.hitEnemy3 == false){
+                    this.countEnemyAround += 1;
+                }
+                if (x == 3 && y == 0 && this.hitEnemy1 == false){
                     this.countEnemyAround += 1;
                 }
             }
         }
 
+    }
+
+    public void getInput(){
+        System.out.print("Your target? ");
+        String inputPlayer = keyboardScanner.nextLine();
+        char inputRowChar = inputPlayer.charAt(0);
+        char inputColumnChar = inputPlayer.charAt(1);
+        this.inputRow = Character.getNumericValue(inputRowChar);
+        this.inputColumn = Character.getNumericValue(inputColumnChar);
     }
 
     public void endGame(){
@@ -106,15 +131,6 @@ public class Game {
 
     }
 
-    public void getInput(){
-        System.out.print("Your target? ");
-        String inputPlayer = keyboardScanner.nextLine();
-        char inputRowChar = inputPlayer.charAt(0);
-        char inputColumnChar = inputPlayer.charAt(1);
-        this.inputRow = Character.getNumericValue(inputRowChar);
-        this.inputColumn = Character.getNumericValue(inputColumnChar);
-    }
-
 
     public void initBattle(char a[][]){
         for (int i = 0; i <= 3; i++){
@@ -145,6 +161,7 @@ public class Game {
         this.hitEnemy3 = false;
         this.hitEnemy4 = false;
         this.notHitEnemy = true;
+        this.countEnemyAround = 0;
     }
 
 
