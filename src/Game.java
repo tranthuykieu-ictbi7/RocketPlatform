@@ -11,8 +11,9 @@ public class Game {
     public boolean hitEnemy2 = false;
     public boolean hitEnemy3 = false;
     public boolean hitEnemy4 = false;
-    public int countEnemyLeft = 0;
+    public int countDeadEnemy = 0;
     public int countEnemyAround = 0;
+    public int countEnemyLeft = 0;
 
 
     public Game() {
@@ -21,35 +22,32 @@ public class Game {
         this.showBattle(a);
 
         for (int i = 5; i >= 1; i--){
+
             getInput();
             hitEnemy(this.inputRow, this.inputColumn);
             getHitEnemy(this.inputRow, this.inputColumn);
             showBattle(a);
             notice();
 
-
             aroundEnemy(a, inputRow, inputColumn);
-            System.out.println(countEnemyAround + " enemy(s) around");
 
+            System.out.println(countEnemyAround + " enemy(s) around");
             System.out.println( i - 1 + " rocket(s) left");
-            System.out.println(4 - countEnemyLeft + " enemy(s) left");
+
+
+            System.out.println(4 - countDeadEnemy + " enemy(s) left");
+            this.countEnemyLeft = 4 - countDeadEnemy;
+            if (i == 1) endGame();
 
             reset();
         }
-        endGame();
     }
 
 
     public void aroundEnemy(char a[][], int inputRow, int inputColumn){
 
-        // need to be fixed
-
         for (int x = inputRow - 1; x <= inputRow + 1; x++){
             for (int y = inputColumn - 1; y <= inputColumn + 1; y++){
-                if (x != inputRow || y != inputColumn){
-
-                }
-
                 if (x == 0 && y == 3 && this.hitEnemy1 == false){
                     this.countEnemyAround += 1;
                 }
@@ -64,7 +62,6 @@ public class Game {
                 }
             }
         }
-
     }
 
     public void getInput(){
@@ -77,44 +74,11 @@ public class Game {
     }
 
     public void endGame(){
+        System.out.println("\n");
         if (this.countEnemyLeft == 0){
             System.out.println("You won");
         } else {
             System.out.println("You lose");
-        }
-    }
-
-    public void getHitEnemy(int inputRow, int inputColumn){
-
-        if (this.notHitEnemy == false){
-            a[inputRow][inputColumn] = 'X';
-        }
-        if (this.hitEnemy1 == true){
-            this.countEnemyLeft += 1;
-            a[0][3] = 'O';
-        }
-        if (this.hitEnemy2 == true){
-            this.countEnemyLeft += 1;
-            a[1][1] = 'O';
-        }
-        if (this.hitEnemy3 == true){
-            this.countEnemyLeft += 1;
-            a[1][2] = 'O';
-        }
-        if (this.hitEnemy4 == true){
-            this.countEnemyLeft += 1;
-            a[3][0] = 'O';
-        }
-    }
-
-    public void notice(){
-        if (this.notHitEnemy == false){
-            System.out.println("You missed");
-        }
-        if (this.hitEnemy1 == true || this.hitEnemy2 == true
-                || this.hitEnemy3 == true || this.hitEnemy4 == true)
-        {
-            System.out.println("You hit");
         }
     }
 
@@ -128,7 +92,35 @@ public class Game {
         }else if (inputRow == 3 && inputColumn == 0){
             this.hitEnemy4 = true;
         } else notHitEnemy = false;
+    }
 
+    public void getHitEnemy(int inputRow, int inputColumn){
+
+        if (this.notHitEnemy == false){
+            a[inputRow][inputColumn] = 'X';
+        }
+        if (this.hitEnemy1 == true){
+            this.countDeadEnemy += 1;
+            a[0][3] = 'O';
+        }
+        if (this.hitEnemy2 == true){
+            this.countDeadEnemy += 1;
+            a[1][1] = 'O';
+        }
+        if (this.hitEnemy3 == true){
+            this.countDeadEnemy += 1;
+            a[1][2] = 'O';
+        }
+        if (this.hitEnemy4 == true){
+            this.countDeadEnemy += 1;
+            a[3][0] = 'O';
+        }
+    }
+
+    public void notice(){
+        if (this.notHitEnemy == false){
+            System.out.println("You missed");
+        } else System.out.println("You hit");
     }
 
 
@@ -156,13 +148,9 @@ public class Game {
     }
 
     public void reset(){
-        this.hitEnemy1 = false;
-        this.hitEnemy2 = false;
-        this.hitEnemy3 = false;
-        this.hitEnemy4 = false;
         this.notHitEnemy = true;
         this.countEnemyAround = 0;
+        this.countDeadEnemy = 0;
     }
-
 
 }
