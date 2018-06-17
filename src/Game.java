@@ -22,10 +22,11 @@ public class Game {
         this.initBattle(a);
         this.showBattle(a);
         this.createEnemy = new CreateEnemy();
-        System.out.println(createEnemy.e1x + " " + createEnemy.e1y);
-        System.out.println(createEnemy.e2x + " " + createEnemy.e2y);
-        System.out.println(createEnemy.e3x + " " + createEnemy.e3y);
-        System.out.println(createEnemy.e4x + " " + createEnemy.e4y);
+        
+//        System.out.println(createEnemy.e1x + " " + createEnemy.e1y);
+//        System.out.println(createEnemy.e2x + " " + createEnemy.e2y);
+//        System.out.println(createEnemy.e3x + " " + createEnemy.e3y);
+//        System.out.println(createEnemy.e4x + " " + createEnemy.e4y);
 
         for (int i = 5; i >= 1; i--){
 
