@@ -14,12 +14,18 @@ public class Game {
     public int countDeadEnemy = 0;
     public int countEnemyAround = 0;
     public int countEnemyLeft = 0;
+    public CreateEnemy createEnemy;
 
 
     public Game() {
 
         this.initBattle(a);
         this.showBattle(a);
+        this.createEnemy = new CreateEnemy();
+        System.out.println(createEnemy.e1x + " " + createEnemy.e1y);
+        System.out.println(createEnemy.e2x + " " + createEnemy.e2y);
+        System.out.println(createEnemy.e3x + " " + createEnemy.e3y);
+        System.out.println(createEnemy.e4x + " " + createEnemy.e4y);
 
         for (int i = 5; i >= 1; i--){
 
@@ -48,16 +54,16 @@ public class Game {
 
         for (int x = inputRow - 1; x <= inputRow + 1; x++){
             for (int y = inputColumn - 1; y <= inputColumn + 1; y++){
-                if (x == 0 && y == 3 && this.hitEnemy1 == false){
+                if (x == createEnemy.e1x && y == createEnemy.e1y && this.hitEnemy1 == false){
                     this.countEnemyAround += 1;
                 }
-                if (x == 1 && y == 1 && this.hitEnemy2 == false){
+                if (x == createEnemy.e2x && y == createEnemy.e2y && this.hitEnemy2 == false){
                     this.countEnemyAround += 1;
                 }
-                if (x == 1 && y == 2 && this.hitEnemy3 == false){
+                if (x == createEnemy.e3x && y == createEnemy.e3y && this.hitEnemy3 == false){
                     this.countEnemyAround += 1;
                 }
-                if (x == 3 && y == 0 && this.hitEnemy1 == false){
+                if (x == createEnemy.e4x && y == createEnemy.e4y && this.hitEnemy1 == false){
                     this.countEnemyAround += 1;
                 }
             }
@@ -83,13 +89,13 @@ public class Game {
     }
 
     public void hitEnemy(int inputRow, int inputColumn){
-        if (inputRow == 0 && inputColumn == 3){
+        if (inputRow == createEnemy.e1x && inputColumn == createEnemy.e1y){
             this.hitEnemy1 = true;
-        } else if (inputRow == 1 && inputColumn == 1){
+        } else if (inputRow == createEnemy.e2x && inputColumn == createEnemy.e2y){
             this.hitEnemy2 = true;
-        } else if (inputRow == 1 && inputColumn == 2){
+        } else if (inputRow == createEnemy.e3x && inputColumn == createEnemy.e3y){
             this.hitEnemy3 = true;
-        }else if (inputRow == 3 && inputColumn == 0){
+        } else if (inputRow == createEnemy.e4x && inputColumn == createEnemy.e4y){
             this.hitEnemy4 = true;
         } else notHitEnemy = false;
     }
@@ -101,19 +107,19 @@ public class Game {
         }
         if (this.hitEnemy1 == true){
             this.countDeadEnemy += 1;
-            a[0][3] = 'O';
+            a[createEnemy.e1x][createEnemy.e1y] = 'O';
         }
         if (this.hitEnemy2 == true){
             this.countDeadEnemy += 1;
-            a[1][1] = 'O';
+            a[createEnemy.e2x][createEnemy.e2y] = 'O';
         }
         if (this.hitEnemy3 == true){
             this.countDeadEnemy += 1;
-            a[1][2] = 'O';
+            a[createEnemy.e3x][createEnemy.e3y] = 'O';
         }
         if (this.hitEnemy4 == true){
             this.countDeadEnemy += 1;
-            a[3][0] = 'O';
+            a[createEnemy.e4x][createEnemy.e4y] = 'O';
         }
     }
 
